@@ -17,6 +17,11 @@ public class ClothesController(AppDbContext dbContext):ControllerBase
     [HttpGet("{id:guid}")]
     public IActionResult GetClothes(Guid id)
     {
+        var item =  dbContext.Clothes.SingleOrDefault(c => c.Id == id);
+        if (item == null)
+        {
+            return NotFound();
+        }
         return Ok(dbContext.Clothes.FirstOrDefault(c => c.Id == id));
     }
 }
